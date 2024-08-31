@@ -6,7 +6,7 @@
 /*   By: jokang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:31:09 by jokang            #+#    #+#             */
-/*   Updated: 2022/06/25 17:15:49 by kanghyki         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:43:53 by kanghyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,20 @@ void	ft_find_dir_pos(char *command, char **pa_directories, int *p)
 	i = 0;
 	while (pa_directories[i] != NULL)
 	{
-		dir = opendir(pa_directories[i]);
+		dir = opendir(pa_directories[i++]);
 		if (dir != NULL)
 		{
 			ent = readdir(dir);
 			while (ent != NULL)
 			{
 				if (ft_strcmp(command, ent->d_name) == 0)
-					*p = i;
+					*p = --i;
 				ent = readdir(dir);
 			}
 			closedir(dir);
 		}
 		else
-			return ;
-		i++;
+			continue ;
 		if (*p > 0)
 			break ;
 	}
