@@ -131,17 +131,19 @@ vpath %.c $(SRC_DIR) $(GNL_DIR) $(TOKEN_DIR) $(PARSER_DIR) $(ENV_DIR) $(ENVBST_D
 
 all: $(NAME)
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@echo $(COMPILE_COLOR) "Compiling...\t$<" $(END)
-	@$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@ -g3
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@ -g3
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
 	@echo $(COMPILE_COLOR) "Building...\t$@" $(END)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDLIBS)
 	@echo $(LIB_COLOR) "Done" $(END)
 
 $(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
+
+-include $(OBJS:.o=.d)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)

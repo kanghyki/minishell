@@ -71,7 +71,7 @@
 
 # define ENV_PATH_NAME_LENGTH (5)
 
-int	g_exit;
+extern int	g_exit;
 
 enum e_token_type {
 	ARGUMENT,

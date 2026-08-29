@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+int	g_exit;
+
 static void	ft_init_minishell(t_env_root **rnv, char **env, int ac, char **av);
 
 int	main(int argc, char **argv, char **env)
